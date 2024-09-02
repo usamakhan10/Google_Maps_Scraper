@@ -122,7 +122,7 @@ def build_results(prepared_data):
 
 if __name__=="__main__":
     # Load the API key from the .env file
-    load_dotenv("credentials.env")
+    load_dotenv(".env")
     GEO_CODING_API_KEY = os.getenv('geocoding_api')
     SCRAPEOPS_API_KEY = os.getenv('scrapeops_api')
 
