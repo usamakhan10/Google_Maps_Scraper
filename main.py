@@ -66,11 +66,8 @@ def main():
 def prepare(input):
     # Remove the first 5 characters and newlines
     prepared_for_parsing = input[4:].replace('\n', '')
-    with open("prepared.txt","w",encoding="utf-8") as f:
-        f.write(prepared_for_parsing)
     json_data = json.loads(prepared_for_parsing)
     results = []
-    # results = [item[14] for item in json_data[0][1]]
     del json_data[0][1][0]
     for item in json_data[0][1]:
         try:
