@@ -1,4 +1,5 @@
 import json
+from unittest import result
 import urllib.parse
 from get_grid import get_lat_long,get_bounding_box
 from dotenv import load_dotenv
@@ -60,7 +61,7 @@ def main():
             for result in list_results:
                 if result not in final_results:
                     final_results.append(result)
-    print(final_results)
+    return final_results
 
 def prepare(input):
     # Remove the first 5 characters and newlines
@@ -125,16 +126,17 @@ if __name__=="__main__":
     GEO_CODING_API_KEY = os.getenv('geocoding_api')
     SCRAPEOPS_API_KEY = os.getenv('scrapeops_api')
 
-    keyword = input("Enter The keyword you want to search for.")
-    place = input("Enter The place you want to search for")
+    keyword = input("Enter The keyword you want to search for: ")
+    place = input("Enter The place you want to search for: ")
 
     encoded_keyword =  urllib.parse.quote(keyword)
     start = 0
     count = 200
     zoom_levels = [35000,15000,7000,3000]
     bounding_box = get_bounding_box(place,GEO_CODING_API_KEY)
-    grid_length = 3
+    grid_length = 1
     lat_long_list = get_lat_long(bounding_box,grid_length)
-    main()
-
-    
+    result = main()
+    with open("result.json","w",encoding="utf-8") as f:
+        for item in result:
+            f.write(json.dumps(item) + ",\n")
